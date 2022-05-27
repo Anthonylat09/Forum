@@ -2,7 +2,9 @@ package com.devteam.forum.personnes;
 
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,10 +27,10 @@ public class Personne {
 	private String motDePasse;
 	
 	
-	@OneToMany(mappedBy = "proprietaire")
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "proprietaire")
 	private Collection<Sujet> sujets;
 	
-	@OneToMany(targetEntity = Message.class, mappedBy = "proprietaire")
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "proprietaire")
 	private Collection<Message> messages;
 	
 	

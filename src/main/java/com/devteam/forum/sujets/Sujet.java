@@ -2,7 +2,9 @@ package com.devteam.forum.sujets;
 
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +24,7 @@ public class Sujet {
 	
 	private String titre;
 	
-	@OneToMany(mappedBy = "sujet")
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "sujet")
 	private Collection<Message> messages;
 	
 	@ManyToOne
