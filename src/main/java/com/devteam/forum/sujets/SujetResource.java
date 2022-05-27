@@ -38,7 +38,7 @@ public class SujetResource {
 	}
 	
 	@DELETE
-	@PathParam("{id}")
+	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteSujet(@PathParam("id") Long id) {
 		if (sujetRepository.findById(id).isPresent()) {

@@ -39,7 +39,7 @@ public class CategorieResource {
 	}
 	
 	@DELETE
-	@PathParam("{id}")
+	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteCategorie(@PathParam("id") Long id) {
 		if (categorieRepository.findById(id).isPresent()) {

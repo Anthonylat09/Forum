@@ -41,7 +41,7 @@ public class PersonneResource {
 	}
 	
 	@DELETE
-	@PathParam("{id}")
+	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deletePersonne(@PathParam("id") Long id) {
 		if (personneRepository.findById(id).isPresent()) {

@@ -38,7 +38,7 @@ public class MessageResource {
 	}
 	
 	@DELETE
-	@PathParam("{id}")
+	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteMessage(@PathParam("id") Long id) {
 		if (messageRepository.findById(id).isPresent()) {
