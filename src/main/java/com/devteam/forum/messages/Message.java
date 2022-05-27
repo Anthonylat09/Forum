@@ -24,6 +24,12 @@ public class Message {
 	
 	@ManyToOne
 	private Personne proprietaire;
+	
+	
+
+	public Message() {
+		super();
+	}
 
 	public Long getId() {
 		return id;

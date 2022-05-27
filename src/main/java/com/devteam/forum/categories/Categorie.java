@@ -23,6 +23,12 @@ public class Categorie {
 	
 	@OneToMany(mappedBy = "categorie")
 	private Collection<Sujet> sujets;
+	
+	
+
+	public Categorie() {
+		super();
+	}
 
 	public Long getId() {
 		return id;

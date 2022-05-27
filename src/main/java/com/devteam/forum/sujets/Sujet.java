@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.devteam.forum.categories.Categorie;
 import com.devteam.forum.messages.Message;
 import com.devteam.forum.personnes.Personne;
 
@@ -26,6 +27,15 @@ public class Sujet {
 	
 	@ManyToOne
 	private Personne proprietaire;
+	
+	@ManyToOne
+	private Categorie categorie;
+	
+	
+
+	public Sujet() {
+		super();
+	}
 
 	public Long getId() {
 		return id;
@@ -58,6 +68,14 @@ public class Sujet {
 
 	public void setMessages(Collection<Message> messages) {
 		this.messages = messages;
+	}
+
+	public Categorie getCategorie() {
+		return categorie;
+	}
+
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
 	}
 	
 	

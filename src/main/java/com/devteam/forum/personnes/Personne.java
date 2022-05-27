@@ -24,11 +24,18 @@ public class Personne {
 	
 	private String motDePasse;
 	
-	@OneToMany(mappedBy = "personne")
+	/*
+	@OneToMany(mappedBy = "proprietaire")
 	private Collection<Sujet> sujets;
 	
-	@OneToMany(targetEntity = Message.class, mappedBy = "personne")
+	@OneToMany(targetEntity = Message.class, mappedBy = "proprietaire")
 	private Collection<Message> messages;
+	*/
+	
+
+	public Personne() {
+		super();
+	}
 
 	public Long getId() {
 		return id;
@@ -61,7 +68,7 @@ public class Personne {
 	public void setMotDePasse(String motDePasse) {
 		this.motDePasse = motDePasse;
 	}
-
+/*
 	public Collection<Sujet> getSujets() {
 		return sujets;
 	}
@@ -77,7 +84,7 @@ public class Personne {
 	public void setMessages(Collection<Message> messages) {
 		this.messages = messages;
 	}
-
+*/
 	
 	
 }
