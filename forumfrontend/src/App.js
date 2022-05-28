@@ -1,8 +1,8 @@
 import './App.css';
-import Inscription from './pages/Inscription'
+import Login from './pages/Login'
 function App() {
   return (
-    <Inscription/>
+    <Login/>
   );
 }
 
