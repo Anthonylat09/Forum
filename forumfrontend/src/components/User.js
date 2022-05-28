@@ -13,7 +13,7 @@ export default function User() {
             <Box
                 component="form"
                 sx={{
-                    '& .MuiTextField-root': { m: 1, width: '25ch' },
+                    '& .MuiTextField-root': { m: 1, width: '65ch' },
                 }}
                 noValidate
                 autoComplete="off"
@@ -23,21 +23,25 @@ export default function User() {
                         required
                         id="outlined-required"
                         label="Pseudo"
-                        fullWidth
+                        
                     />
+                </div>
+                <div>
                     <TextField
                         required
                         id="outlined-required"
                         label="Email"
-                        fullWidth
+                        
                     />
+                </div>
+                <div>
                     <TextField
                         required
                         id="outlined-password-input"
                         label="Mot de passe"
                         type="password"
                         autoComplete="current-password"
-                        fullWidth
+                        
                     />
                 </div>
             </Box>
@@ -48,5 +52,6 @@ export default function User() {
 
 const paperStyle = {padding: '100px 50px',
                     width : 800,
-                    margin: '20px auto'}
+                    margin: '20px auto',
+                    }
 
