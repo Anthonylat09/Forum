@@ -6,8 +6,9 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import { getThemeProps } from '@mui/system';
 
-export default function Appbar() {
+export default function Appbar(props) {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -24,7 +25,7 @@ export default function Appbar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Forum
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit">{props.text}</Button>
         </Toolbar>
       </AppBar>
     </Box>
