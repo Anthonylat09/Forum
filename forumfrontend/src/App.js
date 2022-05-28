@@ -1,12 +1,8 @@
-import logo from './logo.svg';
 import './App.css';
-import Appbar from './components/Appbar';
-
+import Inscription from './pages/Inscription'
 function App() {
   return (
-    <div className="App">
-      <Appbar/>
-    </div>
+    <Inscription/>
   );
 }
 
