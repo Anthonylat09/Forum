@@ -21,6 +21,7 @@ public class JerseyConfiguration extends ResourceConfig{
 		register(CategorieResource.class);
 		register(SujetResource.class);
 		register(MessageResource.class);
+		register(CORSResponseFilter.class);
 		property(ServletProperties.FILTER_FORWARD_ON_404, true);
 	}
 
