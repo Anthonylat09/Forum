@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Container } from '@mui/system';
 import { Paper, Button } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 
 export default function User() {
 
@@ -88,7 +89,7 @@ export default function User() {
 
         <Paper elevation={3}
                style={paperStyle}>
-
+                   <AddIcon/>
             {users.map(user=>(
                 <Paper elevation={6} style={{margin: '10px', padding:'15px', textAlign:'left'}} key={user.id}>
                     Id:{user.id} <br/>
