@@ -58,6 +58,14 @@ export default function Categories() {
         
         <Paper elevation={3}
                style={paperStyle}>
+                   <Box
+                component="form"
+                sx={{
+                    '& .MuiTextField-root': { m: 1, width: '65ch' },
+                }}
+                noValidate
+                autoComplete="off"
+            >
             <div>
                 <Button variant="contained"
                         onClick={clickCreation}
@@ -72,7 +80,7 @@ export default function Categories() {
                 </Paper>
             ))}
             </div>
-
+            </Box>
         </Paper> :
         <Paper elevation = {3}
                style = {paperStyle}>
