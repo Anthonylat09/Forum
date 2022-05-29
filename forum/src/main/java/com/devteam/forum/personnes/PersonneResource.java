@@ -33,6 +33,7 @@ public class PersonneResource {
 	public Personne createPersonne(Personne p) {
 		return personneRepository.save(p);
 	}
+
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -50,6 +51,19 @@ public class PersonneResource {
 			personneRepository.deleteById(id);
 		}
 		return Response.noContent().build();
+	}
+	@POST
+	@Path("connect")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Personne connect(@PathParam("pseudo")String pseudo, @PathParam("motDePasse") String motDePasse)
+	{
+		/*if(getAllPersonnes().stream().filter(p -> p.getPseudo().equals("issa") ).toList().isEmpty())
+		{
+			return getAllPersonnes();
+		}
+		return getAllPersonnes().stream().filter(p -> p.getPseudo().equals("issa") ).toList();*/
+		return personneRepository.findByPseudo(pseudo);
+
 	}
 	
 	
