@@ -9,7 +9,7 @@ export default function User() {
     const[pseudo,setPseudo]=React.useState('')
     const[email,setEmail]=React.useState('')
     const[motDePasse,setMotDePasse]=React.useState('')
-
+    const[users,setUsers]=React.useState([])
     const handleClick=(e) =>{
         e.preventDefault()
         const personne = {pseudo,email,motDePasse}
@@ -20,6 +20,16 @@ export default function User() {
             body: JSON.stringify(personne)
         }).then(()=> (console.log("Nouveau utilisateur créé")))
     }
+
+    React.useEffect(()=> {
+        fetch("http://localhost:8080/forum/personnes",{
+            method:"GET"
+        }).then(res => res.json())
+          .then((result)=>{
+              setUsers(result);
+          }
+          )
+    },[])
 
   return (
     <Container>
@@ -68,7 +78,21 @@ export default function User() {
                             onClick={handleClick}
                             >S'inscrire</Button>
                 </div>
+
             </Box>
+        </Paper>
+
+        <Paper elevation={3}
+               style={paperStyle}>
+
+            {users.map(user=>(
+                <Paper elevation={6} style={{margin: '10px', padding:'15px', textAlign:'left'}} key={user.id}>
+                    Id:{user.id} <br/>
+                    pseudo:{user.pseudo} <br/>
+                    email:{user.email}
+                </Paper>
+            ))}
+
         </Paper>
     </Container>
   );
