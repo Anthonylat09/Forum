@@ -1,8 +1,9 @@
+import './App.css';
 import Inscription from './pages/Inscription'
-import Accueil from './pages/Accueil'
+import Accueil from './pages/Accueil';
 function App() {
   return (
-    <Inscription/>
+  <Accueil/>
   );
 }
 
