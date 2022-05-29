@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 
 @Path("categories")
-@CrossOrigin
 public class CategorieResource {
 	
 	@Autowired
