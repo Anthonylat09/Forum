@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState,useEffect } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Container } from '@mui/system';
@@ -6,10 +7,11 @@ import { Paper, Button } from '@mui/material';
 
 export default function User() {
 
-    const[pseudo,setPseudo]=React.useState('')
-    const[email,setEmail]=React.useState('')
-    const[motDePasse,setMotDePasse]=React.useState('')
-    const[users,setUsers]=React.useState([])
+    const[pseudo,setPseudo]=useState('')
+    const[email,setEmail]=useState('')
+    const[motDePasse,setMotDePasse]=useState('')
+    const[users,setUsers]=useState([])
+
     const handleClick=(e) =>{
         e.preventDefault()
         const personne = {pseudo,email,motDePasse}
@@ -19,9 +21,11 @@ export default function User() {
             headers:{"Content-Type":"application/json"},
             body: JSON.stringify(personne)
         }).then(()=> (console.log("Nouveau utilisateur créé")))
+
+
     }
 
-    React.useEffect(()=> {
+    useEffect(()=> {
         fetch("http://localhost:8080/forum/personnes",{
             method:"GET"
         }).then(res => res.json())
@@ -29,7 +33,7 @@ export default function User() {
               setUsers(result);
           }
           )
-    },[])
+    },[users])
 
   return (
     <Container>
