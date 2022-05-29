@@ -57,7 +57,7 @@ public class PersonneResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public boolean connect(@PathParam("pseudo")String pseudo, @PathParam("motDePasse") String motDePasse)
 	{
-		return !getAllPersonnes().stream().filter(p -> p.getPseudo().equals("issa") ).toList().isEmpty();
+		return !getAllPersonnes().stream().filter(p -> p.getPseudo().equals(pseudo) && p.getMotDePasse().equals(motDePasse) ).toList().isEmpty();
 
 
 	}
