@@ -55,14 +55,10 @@ public class PersonneResource {
 	@POST
 	@Path("connect")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Personne connect(@PathParam("pseudo")String pseudo, @PathParam("motDePasse") String motDePasse)
+	public boolean connect(@PathParam("pseudo")String pseudo, @PathParam("motDePasse") String motDePasse)
 	{
-		/*if(getAllPersonnes().stream().filter(p -> p.getPseudo().equals("issa") ).toList().isEmpty())
-		{
-			return getAllPersonnes();
-		}
-		return getAllPersonnes().stream().filter(p -> p.getPseudo().equals("issa") ).toList();*/
-		return personneRepository.findByPseudo(pseudo);
+		return !getAllPersonnes().stream().filter(p -> p.getPseudo().equals("issa") ).toList().isEmpty();
+
 
 	}
 	
