@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Container } from '@mui/system';
 import { Paper, Button } from '@mui/material';
-
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 export default function Categories() {
 
     const[nom,setNom]=useState('')
@@ -16,6 +16,12 @@ export default function Categories() {
     const clickCreation=(e) =>{
         e.preventDefault()
         setTrack('done')
+    }
+
+    const clickRetour= (e)=> {
+        e.preventDefault()
+        setTrack('')
+        console.log(track)
     }
 
     const clickAjout=(e) =>{
@@ -84,6 +90,15 @@ export default function Categories() {
         </Paper> :
         <Paper elevation = {3}
                style = {paperStyle}>
+            <div>
+            <Button style= {{position: 'relative',
+                             right: '50%',
+                             color: 'red',
+                             }} 
+                    onClick= {clickRetour}>
+                <KeyboardBackspaceIcon/>
+            </Button>
+            </div>    
             <h1>AJouter une catégorie</h1>
             <Box
                 component="form"
