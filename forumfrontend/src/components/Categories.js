@@ -79,11 +79,13 @@ export default function Categories() {
             </div>
             <div>
             {categories.map(categorie=>(
-                <Paper elevation={6} style={{margin: '10px', padding:'15px', textAlign:'left'}} key={categorie.id}>
+                <Button>
+                <Paper elevation={6} style={{width: '80ch',margin: '10px', padding:'15px', textAlign:'left'}} key={categorie.id}>
                     Id: {categorie.id}<br/>
                     Nom: {categorie.nom}<br/>
                     Description: {categorie.description}
                 </Paper>
+                </Button>
             ))}
             </div>
             </Box>
@@ -96,7 +98,7 @@ export default function Categories() {
                              color: 'red',
                              }} 
                     onClick= {clickRetour}>
-                <KeyboardBackspaceIcon/>
+                <KeyboardBackspaceIcon sx={{fontSize: 40}}/>
             </Button>
             </div>    
             <h1>AJouter une catégorie</h1>
