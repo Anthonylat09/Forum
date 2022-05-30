@@ -3,6 +3,7 @@ package com.devteam.forum.personnes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -59,6 +60,13 @@ public class PersonneResource {
 	{
 		return !getAllPersonnes().stream().filter(p -> p.getPseudo().equals(pseudo) && p.getMotDePasse().equals(motDePasse) ).toList().isEmpty();
 
+
+	}
+	@DELETE
+	@Path("{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Optional<Personne> getPersonne(@PathParam("id") Long id) {
+		return personneRepository.findById(id);
 
 	}
 	

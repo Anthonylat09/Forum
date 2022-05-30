@@ -1,97 +1,156 @@
+import * as React from 'react';
+import { useState,useEffect } from 'react';
+import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Container } from '@mui/system';
 import { Paper, Button } from '@mui/material';
-
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Collapse from '@mui/material/Collapse';
-import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { TransitionGroup } from 'react-transition-group';
-import Appbar from '../components/Appbar';
-
-const SUJETS = [
-  'COmment on',
-  ' Est-ce que vous  avez deja ',
-  ' qui  sait '
-];
-
-function renderItem({ item, handleRemoveSubject }) {
-  return (
-    <ListItem
-      secondaryAction={
-        <IconButton
-          edge="end"
-          aria-label="delete"
-          title="Delete"
-          onClick={() => handleRemoveSubject(item)}
-        >
-          <DeleteIcon />
-        </IconButton>
-      }
-    >
-      <ListItemText primary={item} />
-    </ListItem>
-  );
-}
-
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 export function PageSujets() {
-  const [Sujets, setSujets] = React.useState(SUJETS.slice(0, 3));
-
-  const handleAddSubject = () => {
-    const nextHiddenItem = SUJETS.find((i) => !Sujets.includes(i));
-    if (nextHiddenItem) {
-      setSujets((prev) => [nextHiddenItem, ...prev]);
+    const[titre,setTitre]=useState('')
+    const[proprietaire,setProprietaire]=useState('')
+    const[sujets,setSujets]=useState([])
+    const[creerSujet,setCreerSujet]=useState(false)
+    const[track,setTrack]=useState('')
+    const clickCreation=(e) =>{
+        e.preventDefault()
+        setTrack('done')
     }
-  };
+    const clickRetour= (e)=> {
+        e.preventDefault()
+        setTrack('')
+        console.log(track)
+    }
+    const clickAjout=(e) =>{
+        e.preventDefault()
+        const sujet = {titre}
+        alert(sujet.titre)
+        fetch("http://localhost:8080/forum/sujets",{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body: JSON.stringify(sujet)
+        }).then(()=> (console.log("Nouveau utilisateur créé")))
+        setTrack('')
+        
+    }
+    const getIdUserById = (id) =>
+    {
+      const params = {
+        id:id
+    };
+    const options = {
+        method: 'GET',
+        body : JSON.stringify(params)
+    };
+    const url = 'http://localhost:8080/forum/personnes/id'
+    fetch(url,options)
+    .then(response => response.json())
+    .then (response => 
+        {
+            setProprietaire(response)
+        })
 
-  const handleRemoveSubject = (item) => {
-    setSujets((prev) => [...prev.filter((i) => i !== item)]);
-  };
+      
 
-  const addSubjectButton = (
-      <div>
-          <TextField> Saisir le sujet</TextField>
-    <Button
-      variant="contained"
+
+    }
+    useEffect(()=> {
+      fetch("http://localhost:8080/forum/sujets",{
+          method:"GET"
+      }).then(res => res.json())
+        .then((result)=>{
+            setSujets(result);
+        }
+        )
+  },[sujets])
+
+  useEffect(()=> {
+      if (track === 'done'){
+          setCreerSujet(true)
+      }
+      else{
+          setCreerSujet(false)
+      }
+  }, [track])
+
     
-      onClick={handleAddSubject}
-    >
-      Ajouter 
-    </Button> </div>
-  );
-  /*React.useEffect()
-  {
-      const url = "http://localhost:8080/forum/sujet"
-      fetch(url)
-      .then(response => response.json())
-      .then( response => 
-          {
-
-          })
-        }*/
   return (
-    <div>
-    <Appbar text = 'se connecter'></Appbar>
-
-      {addSubjectButton}
-      <Box sx={{ mt: 1 }}>
-        <List> 
-          
-          <TransitionGroup>
-            {Sujets.map((item) => (
-              <Collapse key={item}>
-                {renderItem({ item, handleRemoveSubject })}
-              </Collapse>
+    <Container style = {{alignItems: 'center',
+                         justifyContent: 'center'}}>
+        {
+        !creerSujet?
+        
+        <Paper elevation={3}
+               style={paperStyle}>
+                   <Box
+                component="form"
+                sx={{
+                    '& .MuiTextField-root': { m: 1, width: '65ch' },
+                }}
+                noValidate
+                autoComplete="off"
+            >
+            <div>
+                <Button variant="contained"
+                        onClick={clickCreation}
+                        >Ajouter un sujet</Button>
+            </div>
+            <div>
+            {sujets.map(sujet=>(
+                <Button>
+                <Paper elevation={6} style={{width: '80ch',margin: '10px', padding:'15px', textAlign:'left'}} key={sujet.id}>
+                    Id: {sujet.id}<br/>
+                    Titre: {sujet.titre}<br/>
+                    
+                </Paper>
+                </Button>
             ))}
-          </TransitionGroup>
-        </List>
-      </Box>
-    </div>
+            </div>
+            </Box>
+        </Paper> :
+        <Paper elevation = {3}
+               style = {paperStyle}>
+            <div>
+            <Button style= {{position: 'relative',
+                             right: '50%',
+                             color: 'red',
+                             }} 
+                    onClick= {clickRetour}>
+                <KeyboardBackspaceIcon sx={{fontSize: 40}}/>
+            </Button>
+            </div>    
+            <h1>Ajouter une sujet</h1>
+            <Box
+                component="form"
+                sx={{
+                    '& .MuiTextField-root': { m: 1, width: '65ch' },
+                }}
+                noValidate
+                autoComplete="off"
+            >
+                <div>
+                    <TextField
+                        required
+                        id="outlined-required"
+                        label="Titre"
+                        value = {titre}
+                        onChange = {(e)=> setTitre(e.target.value)}
+                    />
+                </div>
+                <div>
+                    <Button variant="contained"
+                            onClick={clickAjout}
+                            >Ajouter</Button>
+                </div>
+            </Box>
+        </Paper>
+        }
+        
+    </Container>
   );
 }
-
+const paperStyle = {padding: '100px 50px',
+                    width : 800,
+                    margin: '20px auto',
+                    
+                    }
 
