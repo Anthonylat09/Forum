@@ -12,14 +12,13 @@ export default function Messages() {
 
     const clickAjout=(e) =>{
         e.preventDefault()
-        const categorie = {contenu}
-        console.log(categorie)
+        const message = {contenu}
         fetch("http://localhost:8080/forum/messages",{
             method:"POST",
             headers:{"Content-Type":"application/json"},
-            body: JSON.stringify(categorie)
+            body: JSON.stringify(message)
         }).then(()=> (console.log("Nouveau utilisateur créé")))
-        
+        setContenu('')
     }
 
     useEffect(()=> {
