@@ -5,6 +5,31 @@ import TextField from '@mui/material/TextField';
 import { Container } from '@mui/system';
 import { Paper, Button } from '@mui/material';
 function Login() {
+    const[pseudo,setPseudo]=React.useState('')
+    const[motDePasse,setMotDePasse]=React.useState('')
+    const handleLogin = () => 
+    {
+        const params = {
+            pseudo: pseudo,
+            motDePasse:motDePasse
+        };
+        const options = {
+            method: 'POST',
+            body : JSON.stringify(params)
+        };
+        const url = 'http://localhost:8080/forum/personnes/connect'
+        fetch(url,options)
+        .then(response => response.json())
+        .then (response => 
+            {
+                if(response == true) 
+                {
+                    alert("Vous etes connecté bg")
+                }
+            })
+      
+        
+    }
   return (
     <div className="App">
       <Appbar text ="INSCRIPTION"> </Appbar>
@@ -42,7 +67,7 @@ function Login() {
                 </div>
                 <div>
                     <Button variant="contained"
-                            //onClick={handleClick}
+                            onClick={handleLogin}
                             >Se connecter</Button>
                 </div>
             </Box>
