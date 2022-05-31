@@ -1,9 +1,9 @@
 import Appbar from "../components/Appbar";
 import Categories from "../components/Categories";
-function Accueil() {
+function Accueil({logout}) {
   return (
     <div className="App">
-      <Appbar/>
+      <Appbar text ="Déconnexion" logout = {logout}/>
       <Categories/>
     </div>
   );

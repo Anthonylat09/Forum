@@ -1,9 +1,9 @@
 import Appbar from "../components/Appbar";
 import Messages from '../components/Messages'
-function Discussion() {
+function Discussion({logout}) {
   return (
     <div className="App">
-      <Appbar/>
+      <Appbar text ="Déconnexion" logout = {logout}/>
       <Messages/>
     </div>
   );

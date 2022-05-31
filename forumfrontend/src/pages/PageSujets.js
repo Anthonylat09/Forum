@@ -1,9 +1,9 @@
 import Appbar from "../components/Appbar";
 import Sujets from "../components/Sujets"
-function PageSujets() {
+function PageSujets({logout}) {
   return (
     <div className="App">
-      <Appbar/>
+      <Appbar text ="Déconnexion" logout = {logout}/>
       <Sujets/>
     </div>
   );
