@@ -2,6 +2,7 @@ package com.devteam.forum.messages;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -35,6 +36,19 @@ public class MessageResource {
 		List<Message> messages = new ArrayList<Message>();
 		messageRepository.findAll().forEach(messages::add);
 		return messages;
+	}
+	
+	@GET
+	@Path("{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getMessageById(@PathParam("id") Long id) {
+		Optional<Message> m = messageRepository.findById(id);
+		if (m.isPresent()) {
+			return Response.ok(m.get()).build()
+;		}
+		else {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
 	}
 	
 	@DELETE
