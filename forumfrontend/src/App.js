@@ -2,14 +2,30 @@ import './App.css';
 import Inscription from './pages/Inscription'
 import Accueil from './pages/Accueil';
 import PageSujets from './pages/PageSujets';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import React from 'react';
 import Discussion from './pages/Discussion';
-import Messages from './components/Messages';
 function App() {
-  const [token,setToken] = React.useState(null)
+  const [token,setToken] = React.useState(1)
+
+  const navigate = useNavigate()
+
+
   return (
-    <Discussion/>
+    <Routes>
+      { !token && (
+        <Route path = '/' element = {<Inscription/>}/> 
+      )}
+      {token && (
+        <>
+        <Route path = '/accueil' element = {<Accueil/>}/>
+        <Route path = '/sujets' element = {<PageSujets/>}/>
+        <Route path = '/discussion' element = {<Discussion/>}/>
+        </>
+      )}
+      
+      <Route path = '*' element = {<Navigate to = {token? "/accueil" : "/"}/>}/>
+    </Routes>
   );
 }
 
