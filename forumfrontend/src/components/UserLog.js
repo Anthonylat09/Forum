@@ -6,14 +6,15 @@ import { Paper, Button } from '@mui/material';
 function UserLog({authenticate}) {
     const[pseudo,setPseudo]=React.useState('')
     const[motDePasse,setMotDePasse]=React.useState('')
+
+    const[messageDerreur,setMessageDerreur]=React.useState(false)
+
     const handleLogin = () => 
     {
-        const params = {
-            pseudo: pseudo,
-            motDePasse:motDePasse
-        };
+        const params = {pseudo,motDePasse}
         const options = {
             method: 'POST',
+            headers:{"Content-Type":"application/json"},
             body : JSON.stringify(params)
         };
         const url = 'http://localhost:8080/forum/personnes/connect'
@@ -21,13 +22,16 @@ function UserLog({authenticate}) {
         .then(response => response.json())
         .then (response => 
             {
-                if(response == true) 
+                if(response === true) 
                 {
-                    alert("Vous etes connecté bg")
+                    authenticate()
+                }
+                else{
+                    setMessageDerreur(true)
                 }
             })
       
-        authenticate()
+        
     }
   return (
     <div className="App">
@@ -63,6 +67,12 @@ function UserLog({authenticate}) {
                         onChange = {(e)=> setMotDePasse(e.target.value)}
                     />
                 </div>
+                {
+                    messageDerreur? 
+                    <label style = {{color: 'red'}}>Pseudo ou Mot de passe Erroné</label> :
+                    <>
+                    </>
+                }
                 <div>
                     <Button variant="contained"
                             onClick={handleLogin}

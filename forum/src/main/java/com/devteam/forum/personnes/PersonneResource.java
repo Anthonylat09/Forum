@@ -4,6 +4,8 @@ package com.devteam.forum.personnes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -52,14 +54,32 @@ public class PersonneResource {
 		}
 		return Response.noContent().build();
 	}
-
-	@DELETE
-	@Path("{id}")
+	
+	@POST
+	@Path("connect")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Optional<Personne> getPersonne(@PathParam("id") Long id) {
-		return personneRepository.findById(id);
+	public boolean connect(Personne p)
+	{
+		return !getAllPersonnes().stream().filter(personne -> personne.getPseudo().equals(p.getPseudo()) && personne.getMotDePasse().equals(p.getMotDePasse()) ).collect(Collectors.toUnmodifiableList()).isEmpty();
 
 	}
+	
+	@POST
+	@Path("verif")
+	@Produces(MediaType.APPLICATION_JSON)
+	public boolean verifierPseudoEtEmail(Personne p)
+	{
+		boolean existeDeja = false;
+		System.out.println(p.getPseudo());
+		System.out.println(p.getEmail());
+		List<Personne> liste = getAllPersonnes();
+		for (Personne personne: liste) {
+			if (personne.getPseudo().equals(p.getPseudo()) || personne.getEmail().equals(p.getEmail())) existeDeja= true; 
+		}
+		return existeDeja;
+	}
+
+
 	
 	
 }

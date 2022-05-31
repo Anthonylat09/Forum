@@ -4,7 +4,6 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Container } from '@mui/system';
 import { Paper, Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 
 export default function UserAuth({authenticate}) {
 
@@ -13,19 +12,41 @@ export default function UserAuth({authenticate}) {
     const[motDePasse,setMotDePasse]=useState('')
     const[users,setUsers]=useState([])
 
-    const navigate = useNavigate()
+    const[messageDerreur,setMessageDerreur]=useState(false)
 
     const handleClick=(e) =>{
         e.preventDefault()
-        const personne = {pseudo,email,motDePasse}
-        console.log(personne)
-        fetch("http://localhost:8080/forum/personnes",{
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
-            body: JSON.stringify(personne)
-        }).then(()=> (console.log("Nouveau utilisateur créé")))
 
-        authenticate();
+        const params = {pseudo,email}
+        const options = {
+            method: 'POST',
+            headers:{"Content-Type":"application/json"},
+            body : JSON.stringify(params)
+        };
+        const url = 'http://localhost:8080/forum/personnes/verif'
+
+        fetch(url,options)
+        .then(res => res.json())
+          .then((result)=>{
+              console.log(result)
+              if (result === false){
+                const personne = {pseudo,email,motDePasse}
+
+
+                fetch("http://localhost:8080/forum/personnes",{
+                    method:"POST",
+                    headers:{"Content-Type":"application/json"},
+                    body: JSON.stringify(personne)
+                }).then(()=> (console.log("Nouveau utilisateur créé")))
+
+                authenticate();
+              }
+              else{
+                  setMessageDerreur(true)
+              }
+          }
+          )
+        
     }
 
     useEffect(()=> {
@@ -80,6 +101,12 @@ export default function UserAuth({authenticate}) {
                         onChange = {(e)=> setMotDePasse(e.target.value)}
                     />
                 </div>
+                {
+                    messageDerreur? 
+                    <label style = {{color: 'red'}}>Pseudo ou Email déja utilisé</label> :
+                    <>
+                    </>
+                }
                 <div>
                     <Button variant="contained"
                             onClick={handleClick}
