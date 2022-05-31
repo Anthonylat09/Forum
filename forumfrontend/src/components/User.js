@@ -4,13 +4,16 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Container } from '@mui/system';
 import { Paper, Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
-export default function User() {
+export default function User({authenticate}) {
 
     const[pseudo,setPseudo]=useState('')
     const[email,setEmail]=useState('')
     const[motDePasse,setMotDePasse]=useState('')
     const[users,setUsers]=useState([])
+
+    const navigate = useNavigate()
 
     const handleClick=(e) =>{
         e.preventDefault()
@@ -22,7 +25,7 @@ export default function User() {
             body: JSON.stringify(personne)
         }).then(()=> (console.log("Nouveau utilisateur créé")))
 
-
+        authenticate();
     }
 
     useEffect(()=> {

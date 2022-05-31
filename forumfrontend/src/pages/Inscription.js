@@ -1,10 +1,10 @@
 import Appbar from "../components/Appbar";
 import User from '../components/User'
-function Inscription() {
+function Inscription({authenticate}) {
   return (
     <div className="App">
       <Appbar/>
-      <User/>
+      <User authenticate = {authenticate}/>
     </div>
   );
 }
