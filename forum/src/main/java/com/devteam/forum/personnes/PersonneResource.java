@@ -52,15 +52,7 @@ public class PersonneResource {
 		}
 		return Response.noContent().build();
 	}
-	@POST
-	@Path("connect")
-	@Produces(MediaType.APPLICATION_JSON)
-	public boolean connect(@PathParam("pseudo")String pseudo, @PathParam("motDePasse") String motDePasse)
-	{
-		return !getAllPersonnes().stream().filter(p -> p.getPseudo().equals(pseudo) && p.getMotDePasse().equals(motDePasse) ).toList().isEmpty();
 
-
-	}
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
