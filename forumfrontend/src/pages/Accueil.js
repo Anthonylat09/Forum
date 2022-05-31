@@ -1,12 +1,12 @@
 import Appbar from "../components/Appbar";
-import Sujets from "../components/Sujets"
-function PageSujets() {
+import Categories from "../components/Categories";
+function Accueil() {
   return (
     <div className="App">
       <Appbar/>
-      <Sujets/>
+      <Categories/>
     </div>
   );
 }
 
-export default PageSujets;
+export default Accueil

@@ -1,14 +1,19 @@
 import * as React from 'react';
+import { useState,useEffect } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Container } from '@mui/system';
 import { Paper, Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
-export default function User() {
+export default function User({authenticate}) {
 
-    const[pseudo,setPseudo]=React.useState('')
-    const[email,setEmail]=React.useState('')
-    const[motDePasse,setMotDePasse]=React.useState('')
+    const[pseudo,setPseudo]=useState('')
+    const[email,setEmail]=useState('')
+    const[motDePasse,setMotDePasse]=useState('')
+    const[users,setUsers]=useState([])
+
+    const navigate = useNavigate()
 
     const handleClick=(e) =>{
         e.preventDefault()
@@ -19,7 +24,19 @@ export default function User() {
             headers:{"Content-Type":"application/json"},
             body: JSON.stringify(personne)
         }).then(()=> (console.log("Nouveau utilisateur créé")))
+
+        authenticate();
     }
+
+    useEffect(()=> {
+        fetch("http://localhost:8080/forum/personnes",{
+            method:"GET"
+        }).then(res => res.json())
+          .then((result)=>{
+              setUsers(result);
+          }
+          )
+    },[users])
 
   return (
     <Container>
@@ -29,7 +46,7 @@ export default function User() {
             <Box
                 component="form"
                 sx={{
-                    '& .MuiTextField-root': { m: 1, width: '65ch' },
+                    '& .MuiTextField-root': { m: 1, width: '65ch'},
                 }}
                 noValidate
                 autoComplete="off"
@@ -68,7 +85,20 @@ export default function User() {
                             onClick={handleClick}
                             >S'inscrire</Button>
                 </div>
+
             </Box>
+        </Paper>
+
+        <Paper elevation={3}
+               style={paperStyle}>
+            {users.map(user=>(
+                <Paper elevation={6} style={{margin: '10px', padding:'15px', textAlign:'left'}} key={user.id}>
+                    Id:{user.id} <br/>
+                    pseudo:{user.pseudo} <br/>
+                    email:{user.email}
+                </Paper>
+            ))}
+
         </Paper>
     </Container>
   );
@@ -78,4 +108,3 @@ const paperStyle = {padding: '100px 50px',
                     width : 800,
                     margin: '20px auto',
                     }
-

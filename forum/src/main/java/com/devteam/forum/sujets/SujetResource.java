@@ -2,6 +2,7 @@ package com.devteam.forum.sujets;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -14,6 +15,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.devteam.forum.messages.Message;
 
 
 @Path("sujets")
@@ -35,6 +38,26 @@ public class SujetResource {
 		List<Sujet> sujets = new ArrayList<Sujet>();
 		sujetRepository.findAll().forEach(sujets::add);
 		return sujets;
+	}
+	
+	@GET
+	@Path("{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getSujetById(@PathParam("id") Long id) {
+		Optional<Sujet> s = sujetRepository.findById(id);
+		if (s.isPresent()) {
+			return Response.ok(s.get()).build()
+;		}
+		else {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+	}
+	
+	@GET
+	@Path("{id}/messages")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Message> listerMessages(@PathParam("id") Long id) {
+		return (List<Message>) sujetRepository.findById(id).get().getMessages();
 	}
 	
 	@DELETE

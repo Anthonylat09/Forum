@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 
 @Path("personnes")
-@CrossOrigin
 public class PersonneResource {
 	
 	@Autowired
