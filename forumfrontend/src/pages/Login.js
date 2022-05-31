@@ -1,10 +1,10 @@
 import Appbar from "../components/Appbar";
 import UserLog from "../components/UserLog"
-function Login() {
+function Login({authenticate}) {
   return (
     <div className="App">
-      <Appbar text ="INSCRIPTION"> </Appbar>
-      <UserLog/>
+      <Appbar text ="Inscription"> </Appbar>
+      <UserLog authenticate = {authenticate}/>
     </div>
   );
 }

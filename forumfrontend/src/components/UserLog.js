@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Container } from '@mui/system';
 import { Paper, Button } from '@mui/material';
-function UserLog() {
+function UserLog({authenticate}) {
     const[pseudo,setPseudo]=React.useState('')
     const[motDePasse,setMotDePasse]=React.useState('')
     const handleLogin = () => 
@@ -27,7 +27,7 @@ function UserLog() {
                 }
             })
       
-        
+        authenticate()
     }
   return (
     <div className="App">

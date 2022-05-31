@@ -3,7 +3,7 @@ import UserAuth from "../components/UserAuth";
 function Inscription({authenticate}) {
   return (
     <div className="App">
-      <Appbar/>
+      <Appbar text ="Connexion"/>
       <UserAuth authenticate = {authenticate}/>
     </div>
   );

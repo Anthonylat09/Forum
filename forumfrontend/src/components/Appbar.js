@@ -7,13 +7,24 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { getThemeProps } from '@mui/system';
+import { useNavigate } from 'react-router-dom';
 
 
 
 export default function Appbar(props) {
+  const navigate = useNavigate()
   const handleClick=(e) =>{
     e.preventDefault()
-    props.logout()
+    if (props.text === 'Connexion'){
+      navigate('connexion')
+    }
+    else if (props.text === 'Inscription'){
+      navigate('/')
+    }
+    else{
+      props.logout()
+    }
+    
   }
   return (
     <Box sx={{ flexGrow: 1 }}>
