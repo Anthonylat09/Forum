@@ -6,7 +6,7 @@ import { Container } from '@mui/system';
 import { Paper, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-export default function User({authenticate}) {
+export default function UserAuth({authenticate}) {
 
     const[pseudo,setPseudo]=useState('')
     const[email,setEmail]=useState('')

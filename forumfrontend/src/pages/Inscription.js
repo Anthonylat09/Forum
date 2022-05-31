@@ -1,10 +1,10 @@
 import Appbar from "../components/Appbar";
-import User from '../components/User'
+import UserAuth from "../components/UserAuth";
 function Inscription({authenticate}) {
   return (
     <div className="App">
       <Appbar/>
-      <User authenticate = {authenticate}/>
+      <UserAuth authenticate = {authenticate}/>
     </div>
   );
 }

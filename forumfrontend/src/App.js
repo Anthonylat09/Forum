@@ -21,7 +21,10 @@ function App() {
   return (
     <Routes>
       { !token && (
+        <>
         <Route path = '/' element = {<Inscription authenticate = {() => setToken(true)} />}/> 
+        <Route path = '/connexion' element = {<Login authenticate = {() => setToken(true)} />}/> 
+        </>
       )}
       {token && (
         <>
