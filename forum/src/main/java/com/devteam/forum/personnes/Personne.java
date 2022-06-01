@@ -1,6 +1,7 @@
 package com.devteam.forum.personnes;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -28,10 +29,10 @@ public class Personne {
 	
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "proprietaire")
-	private Collection<Sujet> sujets;
+	private List<Sujet> sujets;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "proprietaire")
-	private Collection<Message> messages;
+	private List<Message> messages;
 	
 	
 
@@ -71,19 +72,19 @@ public class Personne {
 		this.motDePasse = motDePasse;
 	}
 
-	public Collection<Sujet> getSujets() {
+	public List<Sujet> getSujets() {
 		return sujets;
 	}
 
-	public void setSujets(Collection<Sujet> sujets) {
+	public void setSujets(List<Sujet> sujets) {
 		this.sujets = sujets;
 	}
 
-	public Collection<Message> getMessages() {
+	public List<Message> getMessages() {
 		return messages;
 	}
 
-	public void setMessages(Collection<Message> messages) {
+	public void setMessages(List<Message> messages) {
 		this.messages = messages;
 	}
 

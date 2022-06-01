@@ -45,6 +45,18 @@ public class PersonneResource {
 		return personnes;
 	}
 	
+	@GET
+	@Path("{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getpersonneById(@PathParam("id") Long id) {
+		Optional<Personne> p = personneRepository.findById(id);
+		if (p.isPresent()) {
+			return Response.ok(p.get()).build();
+		} else {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+	}
+	
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)

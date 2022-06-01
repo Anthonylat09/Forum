@@ -1,6 +1,7 @@
 package com.devteam.forum.sujets;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -25,12 +27,13 @@ public class Sujet {
 	private String titre;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "sujet")
-	private Collection<Message> messages;
+	private List<Message> messages;
 	
 	@ManyToOne
 	private Personne proprietaire;
 	
 	@ManyToOne
+	@JoinColumn(name = "categorie_id",referencedColumnName = "id")
 	private Categorie categorie;
 	
 	
@@ -64,11 +67,11 @@ public class Sujet {
 		this.proprietaire = proprietaire;
 	}
 
-	public Collection<Message> getMessages() {
+	public List<Message> getMessages() {
 		return messages;
 	}
 
-	public void setMessages(Collection<Message> messages) {
+	public void setMessages(List<Message> messages) {
 		this.messages = messages;
 	}
 

@@ -1,6 +1,7 @@
 package com.devteam.forum.categories;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -24,12 +25,13 @@ public class Categorie {
 	private String description;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "categorie")
-	private Collection<Sujet> sujets;
+	private List<Sujet> sujets;
 	
 	
 
 	public Categorie() {
 		super();
+		
 	}
 
 	public Long getId() {
@@ -56,12 +58,16 @@ public class Categorie {
 		this.description = description;
 	}
 
-	public Collection<Sujet> getSujets() {
+	public List<Sujet> getSujets() {
 		return sujets;
 	}
 
-	public void setSujets(Collection<Sujet> sujets) {
+	public void setSujets(List<Sujet> sujets) {
 		this.sujets = sujets;
+	}
+	
+	public void addSujet(Sujet sujet) {
+		this.sujets.add(sujet);
 	}
 
 	
