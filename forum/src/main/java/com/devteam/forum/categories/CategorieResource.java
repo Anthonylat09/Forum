@@ -95,11 +95,11 @@ public class CategorieResource {
 	
 	@PUT
 	@Path("{idCategorie}/sujets/{idSujet}")
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Categorie assignerSujet (@PathParam("idCategorie")Long idCategorie, @PathParam("idSujet")Long idSujet) {
 		Sujet sujet = sujetRepository.findById(idSujet).get();
 		Categorie categorie = categorieRepository.findById(idCategorie).get();
+		sujet.setCategorie(categorie);
 		categorie.addSujet(sujet);
 		return categorieRepository.save(categorie);
 	}

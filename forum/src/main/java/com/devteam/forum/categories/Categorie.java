@@ -1,5 +1,6 @@
 package com.devteam.forum.categories;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
@@ -12,10 +13,16 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.devteam.forum.sujets.Sujet;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Categorie {
+public class Categorie implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5830920388677169510L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -24,7 +31,7 @@ public class Categorie {
 	
 	private String description;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "categorie")
+	@OneToMany(mappedBy = "categorie",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Sujet> sujets;
 	
 	

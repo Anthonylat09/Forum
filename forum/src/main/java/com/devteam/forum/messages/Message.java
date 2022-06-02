@@ -1,5 +1,7 @@
 package com.devteam.forum.messages;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +12,13 @@ import com.devteam.forum.personnes.Personne;
 import com.devteam.forum.sujets.Sujet;
 
 @Entity
-public class Message {
+public class Message implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7157382781960681026L;
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

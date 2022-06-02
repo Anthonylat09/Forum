@@ -1,5 +1,6 @@
 package com.devteam.forum.personnes;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
@@ -15,7 +16,12 @@ import com.devteam.forum.messages.Message;
 import com.devteam.forum.sujets.Sujet;
 
 @Entity
-public class Personne {
+public class Personne implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3138551198561513419L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

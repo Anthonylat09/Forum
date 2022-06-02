@@ -1,5 +1,6 @@
 package com.devteam.forum.sujets;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
@@ -16,9 +17,15 @@ import javax.persistence.OneToMany;
 import com.devteam.forum.categories.Categorie;
 import com.devteam.forum.messages.Message;
 import com.devteam.forum.personnes.Personne;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Sujet {
+public class Sujet implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5319324685932635618L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,7 +40,6 @@ public class Sujet {
 	private Personne proprietaire;
 	
 	@ManyToOne
-	@JoinColumn(name = "categorie_id",referencedColumnName = "id")
 	private Categorie categorie;
 	
 	
