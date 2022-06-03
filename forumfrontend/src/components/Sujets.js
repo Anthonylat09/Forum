@@ -79,6 +79,13 @@ export default function Sujets(props) {
         
         <Paper elevation={3}
                style={paperStyle}>
+                   <Button style= {{position: 'relative',
+                             right: '50%',
+                             color: 'red',
+                             }} 
+                    onClick= {()=> {navigate ('/accueil')}}>
+                <KeyboardBackspaceIcon sx={{fontSize: 40}}/>
+            </Button>
                    <Box
                 component="form"
                 sx={{
@@ -97,12 +104,15 @@ export default function Sujets(props) {
             {sujets.map(sujet=>(
                 <Button onClick = {() => navigate('/discussion', {
                     state: {
-                        idSujet: sujet.id
+                        idSujet: sujet.id,
+                        idCategorie: idCategorie
                     }
                 })}>
-                <Paper elevation={6} style={{width: '80ch',margin: '10px', padding:'15px', textAlign:'left'}} key={sujet.id}>
-                    Id: {sujet.id}<br/>
-                    Titre: {sujet.titre}<br/>
+                <Paper elevation={6} style={{width: '80ch',margin: '10px', padding:'15px', textAlign:'center'}} key={sujet.id}>
+                <span id = "textSpan"
+                          style = {{fontWeight: 'normal'}}>
+                            {sujet.titre}
+                </span>
                     
                 </Paper>
                 </Button>

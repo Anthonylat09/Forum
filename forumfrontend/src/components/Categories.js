@@ -89,10 +89,15 @@ export default function Categories() {
                     }
                 })}>
 
-                <Paper  elevation={6} style={{width: '80ch',margin: '10px', padding:'15px', textAlign:'left'}} key={categorie.id}>
-                    Id: {categorie.id}<br/>
-                    Nom: {categorie.nom}<br/>
-                    Description: {categorie.description}
+                <Paper  elevation={6} style={{width: '80ch',margin: '10px', padding:'15px', textAlign:'center'}} key={categorie.id}>
+                    <span id = "textSpan"
+                          style = {{fontWeight: 'bold'}}>
+                            {categorie.nom}
+                    </span> <br/>
+                    <span id = "textSpan"
+                          style = {{fontWeight: 'normal'}}>
+                            {categorie.description}
+                    </span>
                 </Paper>
                 </Button>
             ))}

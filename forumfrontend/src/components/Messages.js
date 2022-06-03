@@ -4,7 +4,9 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Container } from '@mui/system';
 import { Paper, Button } from '@mui/material';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+
 export default function Messages() {
 
     const[contenu,setContenu]=useState('')
@@ -12,7 +14,11 @@ export default function Messages() {
 
     const {state} = useLocation();
 
+    const navigate = useNavigate()
+
     const idSujet = state.idSujet
+
+    const idCategorie = state.idCategorie
 
     const clickAjout=(e) =>{
         e.preventDefault()
@@ -40,15 +46,27 @@ export default function Messages() {
               setMessages(result);
           }
           )
-    },[messages])
+    },[messages,idSujet])
 
 
   return (
     <Container style = {{alignItems: 'center',
                          justifyContent: 'center'}}>
+                             
          
         <Paper elevation={3}
                style={paperStyle}>
+                   <Button style= {{position: 'relative',
+                             right: '50%',
+                             color: 'red',
+                             }} 
+                    onClick= {() => navigate('/sujets', {
+                        state: {
+                            idCategorie: idCategorie
+                        }
+                    })}>
+                <KeyboardBackspaceIcon sx={{fontSize: 40}}/>
+            </Button>
                    <Box
                 component="form"
                 sx={{
@@ -57,6 +75,16 @@ export default function Messages() {
                 noValidate
                 autoComplete="off"
             >
+                <div>
+            {messages.map(message=>(
+                <Paper elevation={6} style={{margin: '10px', padding:'15px', textAlign:'left'}} key={message.id}>
+                    <span id = "textSpan"
+                          style = {{fontWeight: 'normal'}}>
+                            {message.contenu}
+                </span>
+                </Paper>
+            ))}
+            </div>
             <div>
                     <TextField
                         id="outlined-required"
@@ -71,14 +99,7 @@ export default function Messages() {
                             >Envoyer</Button>
                 </div>
             </Box>
-            <div>
-            {messages.map(message=>(
-                <Paper elevation={6} style={{margin: '10px', padding:'15px', textAlign:'left'}} key={message.id}>
-                    Id: {message.id}<br/>
-                    Contenu: {message.contenu}<br/>
-                </Paper>
-            ))}
-            </div>
+            
         </Paper>
         
         

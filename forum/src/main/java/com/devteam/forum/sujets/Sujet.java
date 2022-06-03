@@ -36,6 +36,7 @@ public class Sujet implements Serializable{
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "sujet")
 	private List<Message> messages;
 	
+	@JsonIgnore
 	@ManyToOne
 	private Personne proprietaire;
 	

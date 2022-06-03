@@ -33,6 +33,7 @@ public class Message implements Serializable{
 	@ManyToOne
 	private Sujet sujet;
 	
+	@JsonIgnore
 	@ManyToOne
 	private Personne proprietaire;
 	
