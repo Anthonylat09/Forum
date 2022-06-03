@@ -11,6 +11,7 @@ function App() {
 
   useEffect(()=> {
     const u = localStorage.getItem("token")
+    console.log(JSON.parse(u))
     u && JSON.parse(u) ? setToken(true) : setToken(false)
   }, []);
 
@@ -33,8 +34,9 @@ function App() {
         <Route path = '/discussion' element = {<Discussion logout = {() => setToken(false)}/>}/>
         </>
       )}
+
+      <Route path = '*' element = {<Navigate to = {token? '/accueil' : '/'}/>}/>
       
-      <Route path = '*' element = {<Navigate to = {token? "/accueil" : "/"}/>}/>
     </Routes>
   );
 }

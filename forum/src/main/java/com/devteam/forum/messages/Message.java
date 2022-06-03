@@ -2,6 +2,7 @@ package com.devteam.forum.messages;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,6 +11,7 @@ import javax.persistence.ManyToOne;
 
 import com.devteam.forum.personnes.Personne;
 import com.devteam.forum.sujets.Sujet;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Message implements Serializable{
@@ -27,6 +29,7 @@ public class Message implements Serializable{
 	
 	private String contenu;
 	
+	@JsonIgnore
 	@ManyToOne
 	private Sujet sujet;
 	

@@ -1,5 +1,6 @@
 package com.devteam.forum.categories;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +36,7 @@ public class CategorieResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Categorie createCategorie(Categorie c) {
+		System.err.println(c.getNom());
 		return categorieRepository.save(c);
 	}
 	
@@ -73,21 +75,23 @@ public class CategorieResource {
 	@GET
 	@Path("{id}/sujets")
 	@Produces(MediaType.APPLICATION_JSON)
-	// GET /personnes/{id}/livres
 	public List<Sujet> listerSujets(@PathParam("id") Long id) {
-		return (List<Sujet>) categorieRepository.findById(id).get().getSujets();
+		List<Sujet> sujets = new ArrayList<Sujet>();
+		sujets = categorieRepository.findById(id).get().getSujets();
+		return sujets;	
 	}
 	
 	
 	
 	@POST
-	@Path("{id}")
+	@Path("{idCategorie}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addSujet(@PathParam("id") Long id, Sujet sujet) {
+	public Response addSujet(@PathParam("idCategorie") Long id, Sujet sujet) {
 		Optional<Categorie> cOpt = categorieRepository.findById(id);
 
 		Categorie c = cOpt.get();
+		sujet.setCategorie(c);
 		c.addSujet(sujet);
 		categorieRepository.save(c);
 		return Response.ok(c).build();

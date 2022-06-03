@@ -16,7 +16,9 @@ import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.devteam.forum.categories.Categorie;
 import com.devteam.forum.messages.Message;
+import com.devteam.forum.messages.MessageRepository;
 
 
 @Path("sujets")
@@ -24,6 +26,10 @@ public class SujetResource {
 	
 	@Autowired
 	private SujetRepository sujetRepository;
+	
+	@Autowired
+	private MessageRepository messageRepository;
+
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -57,8 +63,26 @@ public class SujetResource {
 	@Path("{id}/messages")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Message> listerMessages(@PathParam("id") Long id) {
-		return (List<Message>) sujetRepository.findById(id).get().getMessages();
+		List<Message> messages = new ArrayList<Message>();
+		messages = sujetRepository.findById(id).get().getMessages();
+		return messages;	
 	}
+	
+	@POST
+	@Path("{idSujet}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addMessage(@PathParam("idSujet") Long id, Message message) {
+		Optional<Sujet> sOpt = sujetRepository.findById(id);
+
+		Sujet s = sOpt.get();
+		message.setSujet(s);
+		s.addMessage(message);
+		sujetRepository.save(s);
+		return Response.ok(s).build();
+	}
+	
+
 	
 	@DELETE
 	@Path("{id}")
@@ -69,5 +93,7 @@ public class SujetResource {
 		}
 		return Response.noContent().build();
 	}
+	
+
 
 }

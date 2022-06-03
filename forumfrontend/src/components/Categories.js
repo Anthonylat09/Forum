@@ -5,6 +5,7 @@ import TextField from '@mui/material/TextField';
 import { Container } from '@mui/system';
 import { Paper, Button } from '@mui/material';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
+import { useNavigate } from 'react-router-dom';
 export default function Categories() {
 
     const[nom,setNom]=useState('')
@@ -12,6 +13,8 @@ export default function Categories() {
     const[categories,setCategories]=useState([])
     const[creerCategorie,setCreerCategorie]=useState(false)
     const[track,setTrack]=useState('')
+
+    const navigate = useNavigate();
 
     const clickCreation=(e) =>{
         e.preventDefault()
@@ -57,8 +60,7 @@ export default function Categories() {
     }, [track])
 
   return (
-    <Container style = {{alignItems: 'center',
-                         justifyContent: 'center'}}>
+    <Container>
         {
         !creerCategorie ?
         
@@ -77,10 +79,17 @@ export default function Categories() {
                         onClick={clickCreation}
                         >Ajouter une Catégorie</Button>
             </div>
+            </Box>
             <div>
             {categories.map(categorie=>(
-                <Button>
-                <Paper elevation={6} style={{width: '80ch',margin: '10px', padding:'15px', textAlign:'left'}} key={categorie.id}>
+                
+                <Button onClick = {() => navigate('/sujets', {
+                    state: {
+                        idCategorie: categorie.id
+                    }
+                })}>
+
+                <Paper  elevation={6} style={{width: '80ch',margin: '10px', padding:'15px', textAlign:'left'}} key={categorie.id}>
                     Id: {categorie.id}<br/>
                     Nom: {categorie.nom}<br/>
                     Description: {categorie.description}
@@ -88,7 +97,7 @@ export default function Categories() {
                 </Button>
             ))}
             </div>
-            </Box>
+            
         </Paper> :
         <Paper elevation = {3}
                style = {paperStyle}>

@@ -5,63 +5,61 @@ import TextField from '@mui/material/TextField';
 import { Container } from '@mui/system';
 import { Paper, Button } from '@mui/material';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-export default function Sujets() {
+import { useLocation, useNavigate } from 'react-router-dom';
+export default function Sujets(props) {
     const[titre,setTitre]=useState('')
-    const[proprietaire,setProprietaire]=useState('')
     const[sujets,setSujets]=useState([])
     const[creerSujet,setCreerSujet]=useState(false)
     const[track,setTrack]=useState('')
+
+    const navigate = useNavigate();
+
+    const {state} = useLocation()
+
+    const idCategorie = state.idCategorie
+
     const clickCreation=(e) =>{
         e.preventDefault()
         setTrack('done')
     }
-    const clickRetour= (e)=> {
-        e.preventDefault()
-        setTrack('')
-        console.log(track)
+
+    
+
+    function clickRetour(e) {
+        e.preventDefault();
+        setTrack('');
+        console.log(track);
     }
     const clickAjout=(e) =>{
         e.preventDefault()
         const sujet = {titre}
-        alert(sujet.titre)
-        fetch("http://localhost:8080/forum/sujets",{
-            method:"POST",
+
+        const url = "http://localhost:8080/forum/categories/"+idCategorie
+     
+        const options = {
+            method: "POST",
             headers:{"Content-Type":"application/json"},
             body: JSON.stringify(sujet)
-        }).then(()=> (console.log("Nouveau utilisateur créé")))
+        }
+        alert(sujet.titre)
+        fetch(url, options).then(()=> (console.log("Nouveau utilisateur créé")))
         setTrack('')
+
+        console.log(sujets)
         
     }
-    const getIdUserById = (id) =>
-    {
-      const params = {
-        id:id
-    };
-    const options = {
-        method: 'GET',
-        body : JSON.stringify(params)
-    };
-    const url = 'http://localhost:8080/forum/personnes/id'
-    fetch(url,options)
-    .then(response => response.json())
-    .then (response => 
-        {
-            setProprietaire(response)
-        })
-
-      
-
-
-    }
+    
     useEffect(()=> {
-      fetch("http://localhost:8080/forum/sujets",{
+        var url = "http://localhost:8080/forum/categories/"+idCategorie
+        url = url + "/sujets"
+      fetch(url,{
           method:"GET"
       }).then(res => res.json())
         .then((result)=>{
             setSujets(result);
         }
         )
-  },[sujets])
+  },[sujets,idCategorie])
 
   useEffect(()=> {
       if (track === 'done'){
@@ -94,9 +92,14 @@ export default function Sujets() {
                         onClick={clickCreation}
                         >Ajouter un sujet</Button>
             </div>
+            </Box>
             <div>
             {sujets.map(sujet=>(
-                <Button>
+                <Button onClick = {() => navigate('/discussion', {
+                    state: {
+                        idSujet: sujet.id
+                    }
+                })}>
                 <Paper elevation={6} style={{width: '80ch',margin: '10px', padding:'15px', textAlign:'left'}} key={sujet.id}>
                     Id: {sujet.id}<br/>
                     Titre: {sujet.titre}<br/>
@@ -105,7 +108,7 @@ export default function Sujets() {
                 </Button>
             ))}
             </div>
-            </Box>
+            
         </Paper> :
         <Paper elevation = {3}
                style = {paperStyle}>
@@ -118,7 +121,7 @@ export default function Sujets() {
                 <KeyboardBackspaceIcon sx={{fontSize: 40}}/>
             </Button>
             </div>    
-            <h1>Ajouter une sujet</h1>
+            <h1>Ajouter un sujet</h1>
             <Box
                 component="form"
                 sx={{
@@ -136,12 +139,13 @@ export default function Sujets() {
                         onChange = {(e)=> setTitre(e.target.value)}
                     />
                 </div>
+                </Box>
                 <div>
                     <Button variant="contained"
                             onClick={clickAjout}
                             >Ajouter</Button>
                 </div>
-            </Box>
+            
         </Paper>
         }
         

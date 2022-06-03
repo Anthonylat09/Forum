@@ -4,25 +4,36 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Container } from '@mui/system';
 import { Paper, Button } from '@mui/material';
+import { useLocation } from 'react-router-dom';
 export default function Messages() {
 
     const[contenu,setContenu]=useState('')
     const[messages,setMessages]=useState([])
 
+    const {state} = useLocation();
+
+    const idSujet = state.idSujet
 
     const clickAjout=(e) =>{
         e.preventDefault()
         const message = {contenu}
-        fetch("http://localhost:8080/forum/messages",{
-            method:"POST",
+
+        const url = "http://localhost:8080/forum/sujets/"+idSujet
+
+        const options = {
+            method: "POST",
             headers:{"Content-Type":"application/json"},
             body: JSON.stringify(message)
-        }).then(()=> (console.log("Nouveau utilisateur créé")))
-        setContenu('')
+        }
+
+        fetch(url,options)
     }
 
     useEffect(()=> {
-        fetch("http://localhost:8080/forum/messages",{
+
+        var url = "http://localhost:8080/forum/sujets/"+idSujet
+        url = url + "/messages"
+        fetch(url,{
             method:"GET"
         }).then(res => res.json())
           .then((result)=>{
@@ -47,14 +58,6 @@ export default function Messages() {
                 autoComplete="off"
             >
             <div>
-            {messages.map(message=>(
-                <Paper elevation={6} style={{margin: '10px', padding:'15px', textAlign:'left'}} key={message.id}>
-                    Id: {message.id}<br/>
-                    Contenu: {message.contenu}<br/>
-                </Paper>
-            ))}
-            </div>
-            <div>
                     <TextField
                         id="outlined-required"
                         label="Message"
@@ -68,6 +71,14 @@ export default function Messages() {
                             >Envoyer</Button>
                 </div>
             </Box>
+            <div>
+            {messages.map(message=>(
+                <Paper elevation={6} style={{margin: '10px', padding:'15px', textAlign:'left'}} key={message.id}>
+                    Id: {message.id}<br/>
+                    Contenu: {message.contenu}<br/>
+                </Paper>
+            ))}
+            </div>
         </Paper>
         
         

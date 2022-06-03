@@ -39,6 +39,7 @@ public class Sujet implements Serializable{
 	@ManyToOne
 	private Personne proprietaire;
 	
+	@JsonIgnore
 	@ManyToOne
 	private Categorie categorie;
 	
@@ -89,7 +90,9 @@ public class Sujet implements Serializable{
 		this.categorie = categorie;
 	}
 	
-	
+	public void addMessage(Message message) {
+		this.messages.add(message);
+	}
 	
 	
 }
