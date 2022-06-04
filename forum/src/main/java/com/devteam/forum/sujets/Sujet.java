@@ -2,7 +2,12 @@ package com.devteam.forum.sujets;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -13,6 +18,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import org.hibernate.type.TrueFalseType;
 
 import com.devteam.forum.categories.Categorie;
 import com.devteam.forum.messages.Message;
@@ -33,7 +40,7 @@ public class Sujet implements Serializable{
 	
 	private String titre;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "sujet")
+	@OneToMany(mappedBy = "sujet",fetch = FetchType.EAGER, cascade = CascadeType.ALL,orphanRemoval = true)
 	private List<Message> messages;
 	
 	@JsonIgnore
@@ -76,7 +83,7 @@ public class Sujet implements Serializable{
 	}
 
 	public List<Message> getMessages() {
-		return messages;
+		return (List<Message>) messages;
 	}
 
 	public void setMessages(List<Message> messages) {

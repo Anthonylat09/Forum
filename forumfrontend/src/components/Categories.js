@@ -24,20 +24,20 @@ export default function Categories() {
     const clickRetour= (e)=> {
         e.preventDefault()
         setTrack('')
-        console.log(track)
     }
 
     const clickAjout=(e) =>{
         e.preventDefault()
         const categorie = {nom,description}
-        console.log(categorie)
         fetch("http://localhost:8080/forum/categories",{
             method:"POST",
             headers:{"Content-Type":"application/json"},
             body: JSON.stringify(categorie)
-        }).then(()=> (console.log("Nouveau utilisateur créé")))
+        })
         setTrack('')
         
+        setNom('')
+        setDescription('')
     }
 
     useEffect(()=> {
@@ -90,10 +90,9 @@ export default function Categories() {
                 })}>
 
                 <Paper  elevation={6} style={{width: '80ch',margin: '10px', padding:'15px', textAlign:'center'}} key={categorie.id}>
-                    <span id = "textSpan"
-                          style = {{fontWeight: 'bold'}}>
-                            {categorie.nom}
-                    </span> <br/>
+                    
+                            <h2>{categorie.nom}</h2>
+                    
                     <span id = "textSpan"
                           style = {{fontWeight: 'normal'}}>
                             {categorie.description}

@@ -28,7 +28,6 @@ export default function Sujets(props) {
     function clickRetour(e) {
         e.preventDefault();
         setTrack('');
-        console.log(track);
     }
     const clickAjout=(e) =>{
         e.preventDefault()
@@ -41,11 +40,10 @@ export default function Sujets(props) {
             headers:{"Content-Type":"application/json"},
             body: JSON.stringify(sujet)
         }
-        alert(sujet.titre)
-        fetch(url, options).then(()=> (console.log("Nouveau utilisateur créé")))
+        fetch(url, options)
         setTrack('')
 
-        console.log(sujets)
+        setTitre('')
         
     }
     
@@ -111,7 +109,7 @@ export default function Sujets(props) {
                 <Paper elevation={6} style={{width: '80ch',margin: '10px', padding:'15px', textAlign:'center'}} key={sujet.id}>
                 <span id = "textSpan"
                           style = {{fontWeight: 'normal'}}>
-                            {sujet.titre}
+                            <h1>{sujet.titre}</h1>
                 </span>
                     
                 </Paper>

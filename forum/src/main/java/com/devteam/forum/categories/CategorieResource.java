@@ -2,8 +2,13 @@ package com.devteam.forum.categories;
 
 import java.io.Console;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -18,6 +23,7 @@ import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.devteam.forum.messages.Message;
 import com.devteam.forum.sujets.Sujet;
 import com.devteam.forum.sujets.SujetRepository;
 
@@ -76,9 +82,17 @@ public class CategorieResource {
 	@Path("{id}/sujets")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Sujet> listerSujets(@PathParam("id") Long id) {
+		List<Sujet> sujetsList =  categorieRepository.findById(id).get().getSujets();
+		if (sujetsList.size() == 1 || sujetsList.size() == 0) return sujetsList;
+
 		List<Sujet> sujets = new ArrayList<Sujet>();
-		sujets = categorieRepository.findById(id).get().getSujets();
-		return sujets;	
+		sujets.add(sujetsList.get(0));
+		for (int i = 1; i < sujetsList.size(); i++) {
+			if (!sujetsList.get(i).getId().equals(sujetsList.get(i-1).getId())) {
+				sujets.add(sujetsList.get(i));
+			}
+		}
+		return sujets;
 	}
 	
 	
@@ -89,12 +103,20 @@ public class CategorieResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response addSujet(@PathParam("idCategorie") Long id, Sujet sujet) {
 		Optional<Categorie> cOpt = categorieRepository.findById(id);
+		System.err.println(sujet.getTitre());
 
-		Categorie c = cOpt.get();
-		sujet.setCategorie(c);
-		c.addSujet(sujet);
-		categorieRepository.save(c);
-		return Response.ok(c).build();
+		if(cOpt.isPresent()) {
+			Categorie c = cOpt.get();
+			sujet.setCategorie(c);
+			
+			c.addSujet(sujet);
+			categorieRepository.save(c);
+			return Response.ok(c).build();
+		}
+		else {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+		
 	}
 	
 	@PUT

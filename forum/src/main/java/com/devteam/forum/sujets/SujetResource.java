@@ -1,13 +1,20 @@
 package com.devteam.forum.sujets;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.PATCH;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -63,9 +70,20 @@ public class SujetResource {
 	@Path("{id}/messages")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Message> listerMessages(@PathParam("id") Long id) {
-		List<Message> messages = new ArrayList<Message>();
-		messages = sujetRepository.findById(id).get().getMessages();
-		return messages;	
+		List<Message> sujetsList =  sujetRepository.findById(id).get().getMessages();
+		if (sujetsList.size() == 1 || sujetsList.size() == 0) return sujetsList;
+
+		List<Message> sujets = new ArrayList<Message>();
+		sujets.add(sujetsList.get(0));
+		
+
+		for (int i = 1; i < sujetsList.size(); i++) {
+			if (!sujetsList.get(i).getId().equals(sujetsList.get(i-1).getId())) {
+				sujets.add(sujetsList.get(i));
+			}
+		}
+		return sujets;
+
 	}
 	
 	@POST
@@ -75,11 +93,17 @@ public class SujetResource {
 	public Response addMessage(@PathParam("idSujet") Long id, Message message) {
 		Optional<Sujet> sOpt = sujetRepository.findById(id);
 
-		Sujet s = sOpt.get();
-		message.setSujet(s);
-		s.addMessage(message);
-		sujetRepository.save(s);
-		return Response.ok(s).build();
+		if(sOpt.isPresent()) {
+			Sujet s = sOpt.get();
+			message.setSujet(s);
+			s.addMessage(message);
+			sujetRepository.save(s);
+			return Response.ok(s).build();
+		}
+		else {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+		
 	}
 	
 

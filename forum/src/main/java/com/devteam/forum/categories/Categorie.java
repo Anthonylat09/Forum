@@ -2,7 +2,12 @@ package com.devteam.forum.categories;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -32,7 +37,7 @@ public class Categorie implements Serializable{
 	private String description;
 	
 	@OneToMany(mappedBy = "categorie",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-	private List<Sujet> sujets;
+	private List<Sujet> sujets ;
 	
 	
 
@@ -66,7 +71,7 @@ public class Categorie implements Serializable{
 	}
 
 	public List<Sujet> getSujets() {
-		return sujets;
+		return (List<Sujet>) sujets;
 	}
 
 	public void setSujets(List<Sujet> sujets) {

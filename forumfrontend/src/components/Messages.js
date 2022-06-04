@@ -33,6 +33,8 @@ export default function Messages() {
         }
 
         fetch(url,options)
+
+        setContenu('')
     }
 
     useEffect(()=> {
