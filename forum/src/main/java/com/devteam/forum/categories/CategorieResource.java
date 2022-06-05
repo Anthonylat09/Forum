@@ -47,7 +47,6 @@ public class CategorieResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Categorie createCategorie(Categorie c) {
-		System.err.println(c.getNom());
 		return categorieRepository.save(c);
 	}
 	

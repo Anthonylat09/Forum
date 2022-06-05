@@ -92,8 +92,6 @@ public class PersonneResource {
 	public boolean verifierPseudoEtEmail(Personne p)
 	{
 		boolean existeDeja = false;
-		System.out.println(p.getPseudo());
-		System.out.println(p.getEmail());
 		List<Personne> liste = getAllPersonnes();
 		for (Personne personne: liste) {
 			if (personne.getPseudo().equals(p.getPseudo()) || personne.getEmail().equals(p.getEmail())) existeDeja= true; 

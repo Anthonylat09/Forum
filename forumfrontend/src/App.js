@@ -11,7 +11,6 @@ function App() {
 
   useEffect(()=> {
     const u = localStorage.getItem("token")
-    console.log(JSON.parse(u))
     u && JSON.parse(u) ? setToken(true) : setToken(false)
   }, []);
 

@@ -30,7 +30,6 @@ export default function UserAuth({authenticate}) {
         fetch(url,options)
         .then(res => res.json())
           .then((result)=>{
-              console.log(result)
               if (result === false){
                 const personne = {pseudo,email,motDePasse}
 
