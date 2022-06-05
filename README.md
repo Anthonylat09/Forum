@@ -5,8 +5,8 @@ Ce projet a été créé en utilisant les technologies HyperSQL Database, Spring
 ## Lancement de la lase de données
 
 Pour se faire, il faut avoir au préalable téléchargé le .zip disponible sur le site officiel de hsqldb à l'adresse suivante: 
-[hsqldb](https://hsqldb.org/)
-Après avoir décompréssé le dossier, naviguer vers le dossier lib puis lancer la commande suivante:
+[hsqldb](https://hsqldb.org/) <br>
+Après avoir décompréssé le dossier, naviguer vers le dossier lib puis lancer la commande suivante: <br>
 java -cp hsqldb.jar org.hsqldb.server.Server --database.0 file:mydb --dbname.0 forumBDD
 
 La base de données est ainsi lancée
