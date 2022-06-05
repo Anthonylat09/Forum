@@ -1,6 +1,6 @@
 # Procédure de lancement du projet
 
-Ce projet a été créé en utilisant les technologies HyperSQL Database, Spring Boot et React.js.
+Ce projet a été créé en utilisant les technologies HyperSQL Database, Spring Boot et React.js. Il s'agit de l'implémentation d'un forum de discussion, permettant aux utilisateurs de créer des catégories et des sujets, et d'y envoyer des messages.
 
 ## Lancement de la lase de données
 
