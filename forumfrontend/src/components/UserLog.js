@@ -3,9 +3,12 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Container } from '@mui/system';
 import { Paper, Button } from '@mui/material';
+import {useNavigate } from 'react-router-dom';
 function UserLog({authenticate}) {
     const[pseudo,setPseudo]=React.useState('')
     const[motDePasse,setMotDePasse]=React.useState('')
+
+    const navigate = useNavigate()
 
     const[messageDerreur,setMessageDerreur]=React.useState(false)
 
@@ -22,9 +25,16 @@ function UserLog({authenticate}) {
         .then(response => response.json())
         .then (response => 
             {
-                if(response === true) 
+                if(response.id !== 0) 
                 {
+                    const idPersonne = response.id
+                    
                     authenticate()
+                    navigate('/accueil', {
+                        state: {
+                            idPersonne: idPersonne,
+                        }
+                    })
                 }
                 else{
                     setMessageDerreur(true)

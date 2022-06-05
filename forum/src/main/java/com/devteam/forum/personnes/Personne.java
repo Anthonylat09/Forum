@@ -93,6 +93,14 @@ public class Personne implements Serializable{
 	public void setMessages(List<Message> messages) {
 		this.messages = messages;
 	}
+	
+	public void addSujet(Sujet sujet) {
+		this.sujets.add(sujet);
+	}
+	
+	public void addMessage(Message message) {
+		this.messages.add(message);
+	}
 
 	
 	

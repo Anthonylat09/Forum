@@ -20,11 +20,18 @@ export default function Messages() {
 
     const idCategorie = state.idCategorie
 
+    const idPersonne = state.idPersonne
+
+
     const clickAjout=(e) =>{
         e.preventDefault()
         const message = {contenu}
 
-        const url = "http://localhost:8080/forum/sujets/"+idSujet
+        var url = "http://localhost:8080/forum/sujets/"+idSujet
+
+        url = url+ "/personnes/"
+
+        url = url + idPersonne
 
         const options = {
             method: "POST",
@@ -42,7 +49,8 @@ export default function Messages() {
         var url = "http://localhost:8080/forum/sujets/"+idSujet
         url = url + "/messages"
         fetch(url,{
-            method:"GET"
+            method:"GET",
+            headers:{"Content-Type":"application/json"},
         }).then(res => res.json())
           .then((result)=>{
               setMessages(result);
@@ -64,6 +72,7 @@ export default function Messages() {
                              }} 
                     onClick= {() => navigate('/sujets', {
                         state: {
+                            idPersonne: idPersonne,
                             idCategorie: idCategorie
                         }
                     })}>
@@ -80,6 +89,11 @@ export default function Messages() {
                 <div>
             {messages.map(message=>(
                 <Paper elevation={6} style={{margin: '10px', padding:'15px', textAlign:'left'}} key={message.id}>
+
+                <span id = "textSpan"
+                          style = {{fontWeight: 'bold'}}>
+                            {"@"+message.proprietairePseudo} :<br/>
+                </span>
                     <span id = "textSpan"
                           style = {{fontWeight: 'normal'}}>
                             {message.contenu}

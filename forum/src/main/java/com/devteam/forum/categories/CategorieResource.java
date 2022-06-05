@@ -24,6 +24,8 @@ import javax.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.devteam.forum.messages.Message;
+import com.devteam.forum.personnes.Personne;
+import com.devteam.forum.personnes.PersonneRepository;
 import com.devteam.forum.sujets.Sujet;
 import com.devteam.forum.sujets.SujetRepository;
 
@@ -36,6 +38,9 @@ public class CategorieResource {
 	
 	@Autowired
 	private SujetRepository sujetRepository;
+	
+	@Autowired
+	private PersonneRepository personneRepository;
 
 	
 	@POST
@@ -98,18 +103,22 @@ public class CategorieResource {
 	
 	
 	@POST
-	@Path("{idCategorie}")
+	@Path("{idCategorie}/personnes/{idProprietaire}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addSujet(@PathParam("idCategorie") Long id, Sujet sujet) {
-		Optional<Categorie> cOpt = categorieRepository.findById(id);
-		System.err.println(sujet.getTitre());
+	public Response addSujet(@PathParam("idCategorie") Long idCategorie,@PathParam("idProprietaire") Long idProprietaire, Sujet sujet) {
+		Optional<Categorie> cOpt = categorieRepository.findById(idCategorie);
+		
+		Optional<Personne> pOpt = personneRepository.findById(idProprietaire);
+		
 
-		if(cOpt.isPresent()) {
+		if(cOpt.isPresent() && pOpt.isPresent()) {
 			Categorie c = cOpt.get();
+			Personne p = pOpt.get();
 			sujet.setCategorie(c);
-			
+			sujet.setProprietaire(p);
 			c.addSujet(sujet);
+			p.addSujet(sujet);
 			categorieRepository.save(c);
 			return Response.ok(c).build();
 		}

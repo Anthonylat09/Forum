@@ -23,6 +23,7 @@ public class MessageResource {
 	@Autowired
 	private MessageRepository messageRepository;
 	
+	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -38,18 +39,22 @@ public class MessageResource {
 		return messages;
 	}
 	
+	
 	@GET
-	@Path("{id}")
+	@Path("{idMessage}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getMessageById(@PathParam("id") Long id) {
-		Optional<Message> m = messageRepository.findById(id);
-		if (m.isPresent()) {
-			return Response.ok(m.get()).build()
-;		}
-		else {
-			return Response.status(Response.Status.NOT_FOUND).build();
+	public String getProprietairePseudo(@PathParam ("idMessage") Long id) {
+		Optional<Message> mOpt = messageRepository.findById(id);
+		
+		if (mOpt.isPresent()) {
+			Message message = mOpt.get();
+			String proprio = message.getProprietaire().getPseudo();
+			return proprio;
 		}
+		
+		return "";
 	}
+	
 	
 	@DELETE
 	@Path("{id}")

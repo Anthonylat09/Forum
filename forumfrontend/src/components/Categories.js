@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import { Container } from '@mui/system';
 import { Paper, Button } from '@mui/material';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 export default function Categories() {
 
     const[nom,setNom]=useState('')
@@ -15,6 +15,12 @@ export default function Categories() {
     const[track,setTrack]=useState('')
 
     const navigate = useNavigate();
+
+    const {state} = useLocation()
+
+    const idPersonne = state.idPersonne
+
+
 
     const clickCreation=(e) =>{
         e.preventDefault()
@@ -59,6 +65,7 @@ export default function Categories() {
         }
     }, [track])
 
+
   return (
     <Container>
         {
@@ -85,6 +92,7 @@ export default function Categories() {
                 
                 <Button onClick = {() => navigate('/sujets', {
                     state: {
+                        idPersonne: idPersonne,
                         idCategorie: categorie.id
                     }
                 })}>

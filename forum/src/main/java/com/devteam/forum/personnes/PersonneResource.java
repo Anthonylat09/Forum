@@ -70,9 +70,19 @@ public class PersonneResource {
 	@POST
 	@Path("connect")
 	@Produces(MediaType.APPLICATION_JSON)
-	public boolean connect(Personne p)
+	public Personne connect(Personne p)
 	{
-		return !getAllPersonnes().stream().filter(personne -> personne.getPseudo().equals(p.getPseudo()) && personne.getMotDePasse().equals(p.getMotDePasse()) ).collect(Collectors.toUnmodifiableList()).isEmpty();
+		List<Personne> per = getAllPersonnes().stream().filter(personne -> personne.getPseudo().equals(p.getPseudo()) && personne.getMotDePasse().equals(p.getMotDePasse()) ).collect(Collectors.toUnmodifiableList());
+		boolean existe = !per.isEmpty();
+		if (existe){
+			return per.get(0);
+		}
+		else
+		{
+			Personne pers = new Personne();
+			pers.setId((long) 0);
+			return pers;
+		}
 
 	}
 	

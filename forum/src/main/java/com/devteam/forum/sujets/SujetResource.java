@@ -26,6 +26,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.devteam.forum.categories.Categorie;
 import com.devteam.forum.messages.Message;
 import com.devteam.forum.messages.MessageRepository;
+import com.devteam.forum.personnes.Personne;
+import com.devteam.forum.personnes.PersonneRepository;
 
 
 @Path("sujets")
@@ -36,6 +38,9 @@ public class SujetResource {
 	
 	@Autowired
 	private MessageRepository messageRepository;
+	
+	@Autowired
+	private PersonneRepository personneRepository;
 
 	
 	@POST
@@ -70,33 +75,43 @@ public class SujetResource {
 	@Path("{id}/messages")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Message> listerMessages(@PathParam("id") Long id) {
-		List<Message> sujetsList =  sujetRepository.findById(id).get().getMessages();
-		if (sujetsList.size() == 1 || sujetsList.size() == 0) return sujetsList;
+		List<Message> messagesList =  sujetRepository.findById(id).get().getMessages();
+		if (messagesList.size() == 1 || messagesList.size() == 0) return messagesList;
 
-		List<Message> sujets = new ArrayList<Message>();
-		sujets.add(sujetsList.get(0));
+		List<Message> messages = new ArrayList<Message>();
+		messages.add(messagesList.get(0));
 		
 
-		for (int i = 1; i < sujetsList.size(); i++) {
-			if (!sujetsList.get(i).getId().equals(sujetsList.get(i-1).getId())) {
-				sujets.add(sujetsList.get(i));
+		for (int i = 1; i < messagesList.size(); i++) {
+			if (!messagesList.get(i).getId().equals(messagesList.get(i-1).getId())) {
+				messages.add(messagesList.get(i));
+
 			}
+			
+
 		}
-		return sujets;
+		return messages;
 
 	}
 	
 	@POST
-	@Path("{idSujet}")
+	@Path("{idSujet}/personnes/{idProprietaire}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addMessage(@PathParam("idSujet") Long id, Message message) {
-		Optional<Sujet> sOpt = sujetRepository.findById(id);
+	public Response addMessage(@PathParam("idSujet") Long idSujet,@PathParam("idProprietaire") Long idProprietaire, Message message) {
+		Optional<Sujet> sOpt = sujetRepository.findById(idSujet);
+		
+		Optional<Personne> pOpt = personneRepository.findById(idProprietaire);
 
-		if(sOpt.isPresent()) {
+
+		if(sOpt.isPresent() && pOpt.isPresent()) {
 			Sujet s = sOpt.get();
+			Personne p = pOpt.get();
 			message.setSujet(s);
+			message.setProprietaire(p);
+			message.setProprietairePseudo(p.getPseudo());
 			s.addMessage(message);
+			p.addMessage(message);
 			sujetRepository.save(s);
 			return Response.ok(s).build();
 		}

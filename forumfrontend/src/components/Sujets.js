@@ -18,6 +18,9 @@ export default function Sujets(props) {
 
     const idCategorie = state.idCategorie
 
+    const idPersonne = state.idPersonne
+
+
     const clickCreation=(e) =>{
         e.preventDefault()
         setTrack('done')
@@ -31,9 +34,17 @@ export default function Sujets(props) {
     }
     const clickAjout=(e) =>{
         e.preventDefault()
+
+
         const sujet = {titre}
 
-        const url = "http://localhost:8080/forum/categories/"+idCategorie
+        var url = "http://localhost:8080/forum/categories/"+idCategorie
+
+        url = url+ "/personnes/"
+
+        url = url + idPersonne
+
+        console.log(url)
      
         const options = {
             method: "POST",
@@ -81,7 +92,11 @@ export default function Sujets(props) {
                              right: '50%',
                              color: 'red',
                              }} 
-                    onClick= {()=> {navigate ('/accueil')}}>
+                    onClick= {()=> {navigate ('/accueil', {
+                        state: {
+                            idPersonne: idPersonne,
+                        }
+                    })}}>
                 <KeyboardBackspaceIcon sx={{fontSize: 40}}/>
             </Button>
                    <Box
@@ -102,6 +117,7 @@ export default function Sujets(props) {
             {sujets.map(sujet=>(
                 <Button onClick = {() => navigate('/discussion', {
                     state: {
+                        idPersonne: idPersonne,
                         idSujet: sujet.id,
                         idCategorie: idCategorie
                     }

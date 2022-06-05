@@ -37,6 +37,8 @@ public class Message implements Serializable{
 	@ManyToOne
 	private Personne proprietaire;
 	
+	private String proprietairePseudo;
+	
 	
 
 	public Message() {
@@ -73,6 +75,14 @@ public class Message implements Serializable{
 
 	public void setProprietaire(Personne proprietaire) {
 		this.proprietaire = proprietaire;
+	}
+
+	public String getProprietairePseudo() {
+		return proprietairePseudo;
+	}
+
+	public void setProprietairePseudo(String proprietairePseudo) {
+		this.proprietairePseudo = proprietairePseudo;
 	}
 	
 	
