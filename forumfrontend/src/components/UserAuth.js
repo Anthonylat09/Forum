@@ -140,18 +140,6 @@ export default function UserAuth({authenticate}) {
 
             </Box>
         </Paper>
-
-        <Paper elevation={3}
-               style={paperStyle}>
-            {users.map(user=>(
-                <Paper elevation={6} style={{margin: '10px', padding:'15px', textAlign:'left'}} key={user.id}>
-                    Id:{user.id} <br/>
-                    pseudo:{user.pseudo} <br/>
-                    email:{user.email}
-                </Paper>
-            ))}
-
-        </Paper>
     </Container>
   );
 }
