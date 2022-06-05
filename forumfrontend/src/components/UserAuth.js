@@ -18,7 +18,6 @@ export default function UserAuth({authenticate}) {
     const[messageDerreur,setMessageDerreur]=useState(false)
 
     const handleClick=(e) =>{
-        e.preventDefault()
 
         const params = {pseudo,email}
         const options = {
@@ -67,6 +66,12 @@ export default function UserAuth({authenticate}) {
         
     }
 
+    const handlePress = (e) => {
+        if(e.key === 'Enter'){
+            handleClick()
+        }
+    }
+
     useEffect(()=> {
         fetch("http://localhost:8080/forum/personnes",{
             method:"GET"
@@ -97,6 +102,7 @@ export default function UserAuth({authenticate}) {
                         label="Pseudo"
                         value = {pseudo}
                         onChange = {(e)=> setPseudo(e.target.value)}
+                        onKeyPress= {handlePress}
                     />
                 </div>
                 <div>
@@ -106,6 +112,7 @@ export default function UserAuth({authenticate}) {
                         label="Email"
                         value = {email}
                         onChange = {(e)=> setEmail(e.target.value)}
+                        onKeyPress= {handlePress}
                     />
                 </div>
                 <div>
@@ -117,6 +124,7 @@ export default function UserAuth({authenticate}) {
                         autoComplete="current-password"
                         value = {motDePasse}
                         onChange = {(e)=> setMotDePasse(e.target.value)}
+                        onKeyPress = {handlePress}
                     />
                 </div>
                 {

@@ -33,8 +33,6 @@ export default function Sujets(props) {
         setTrack('');
     }
     const clickAjout=(e) =>{
-        e.preventDefault()
-
 
         const sujet = {titre}
 
@@ -43,8 +41,6 @@ export default function Sujets(props) {
         url = url+ "/personnes/"
 
         url = url + idPersonne
-
-        console.log(url)
      
         const options = {
             method: "POST",
@@ -58,6 +54,12 @@ export default function Sujets(props) {
         
     }
     
+    const handlePress = (e) => {
+        if(e.key === 'Enter'){
+            clickAjout()
+        }
+    }
+
     useEffect(()=> {
         var url = "http://localhost:8080/forum/categories/"+idCategorie
         url = url + "/sujets"
@@ -161,6 +163,7 @@ export default function Sujets(props) {
                         label="Titre"
                         value = {titre}
                         onChange = {(e)=> setTitre(e.target.value)}
+                        onKeyPress = {handlePress}
                     />
                 </div>
                 </Box>

@@ -43,6 +43,14 @@ function UserLog({authenticate}) {
       
         
     }
+
+
+    const handlePress = (e) => {
+        if(e.key === 'Enter'){
+            handleLogin()
+        }
+    }
+
   return (
     <div className="App">
       <Container>
@@ -64,6 +72,7 @@ function UserLog({authenticate}) {
                         label="Pseudo"
                         
                         onChange = {(e)=> setPseudo(e.target.value)}
+                        onKeyPress= {handlePress}
                     />
                 </div>
                 <div>
@@ -75,6 +84,7 @@ function UserLog({authenticate}) {
                         autoComplete="current-password"
                        
                         onChange = {(e)=> setMotDePasse(e.target.value)}
+                        onKeyPress = {handlePress}
                     />
                 </div>
                 {

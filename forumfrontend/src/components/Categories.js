@@ -21,7 +21,6 @@ export default function Categories() {
     const idPersonne = state.idPersonne
 
 
-
     const clickCreation=(e) =>{
         e.preventDefault()
         setTrack('done')
@@ -33,7 +32,6 @@ export default function Categories() {
     }
 
     const clickAjout=(e) =>{
-        e.preventDefault()
         const categorie = {nom,description}
         fetch("http://localhost:8080/forum/categories",{
             method:"POST",
@@ -44,6 +42,12 @@ export default function Categories() {
         
         setNom('')
         setDescription('')
+    }
+
+    const handlePress = (e) => {
+        if(e.key === 'Enter'){
+            clickAjout()
+        }
     }
 
     useEffect(()=> {
@@ -64,6 +68,8 @@ export default function Categories() {
             setCreerCategorie(false)
         }
     }, [track])
+
+      
 
 
   return (
@@ -138,6 +144,7 @@ export default function Categories() {
                         label="Nom"
                         value = {nom}
                         onChange = {(e)=> setNom(e.target.value)}
+                        onKeyPress= {handlePress}
                     />
                 </div>
                 <div>
@@ -147,6 +154,7 @@ export default function Categories() {
                         label="Description"
                         value = {description}
                         onChange = {(e)=> setDescription(e.target.value)}
+                        onKeyPress= {handlePress}
                     />
                 </div>
 

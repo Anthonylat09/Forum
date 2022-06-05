@@ -44,6 +44,12 @@ export default function Messages() {
         setContenu('')
     }
 
+    const handlePress = (e) => {
+        if(e.key === 'Enter'){
+            clickAjout()
+        }
+    }
+
     useEffect(()=> {
 
         var url = "http://localhost:8080/forum/sujets/"+idSujet
@@ -107,6 +113,7 @@ export default function Messages() {
                         label="Message"
                         value = {contenu}
                         onChange = {(e)=> setContenu(e.target.value)}
+                        onKeyPress = {handlePress}
                     />
                 </div>
                 <div>
