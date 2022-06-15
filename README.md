@@ -1,6 +1,20 @@
 # Procédure de lancement du projet
 
-Ce projet a été créé en utilisant les technologies HyperSQL Database, Spring Boot et React.js. Il s'agit de l'implémentation d'un forum de discussion, permettant aux utilisateurs de créer des catégories et des sujets, et d'y envoyer des messages.
+Ce projet a été créé en utilisant les technologies HyperSQL Database, Spring Boot et React.js. Il s'agit de l'implémentation d'un forum de discussion, permettant aux utilisateurs de créer des catégories et des sujets, et d'y envoyer des messages. <br>
+
+Pour lancer le projet vous avez besoin d'avoir les logiciels suivant installés: <br>
+### java
+$ sudo apt install default-jre
+### npm 
+$ sudo apt install npm
+### maven
+Suivez ce tutoriel [maven](https://www.journaldev.com/33588/install-maven-linux-ubuntu)
+
+Ceci fait, vous pouvez soit utiliser le script de démarrage en lançant la commande suivant : <br>
+
+$ ./script_demarrage.sh
+
+Vous pouvez également suivre la procédure ci-dessous:
 
 ## Lancement de la lase de données
 
