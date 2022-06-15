@@ -10,7 +10,7 @@ Pour lancer le projet vous avez besoin d'avoir les logiciels suivant installés:
 ### maven
 Suivez ce tutoriel [maven](https://www.journaldev.com/33588/install-maven-linux-ubuntu)
 
-Ceci fait, vous pouvez soit utiliser le script de démarrage en lançant la commande suivant : <br>
+Ceci fait, vous pouvez soit utiliser le script de démarrage en lançant la commande suivante : <br>
 
     $ ./script_demarrage.sh
 
