@@ -4,15 +4,15 @@ Ce projet a été créé en utilisant les technologies HyperSQL Database, Spring
 
 Pour lancer le projet vous avez besoin d'avoir les logiciels suivant installés: <br>
 ### java
-$ sudo apt install default-jre
+    $ sudo apt install default-jre
 ### npm 
-$ sudo apt install npm
+    $ sudo apt install npm
 ### maven
 Suivez ce tutoriel [maven](https://www.journaldev.com/33588/install-maven-linux-ubuntu)
 
 Ceci fait, vous pouvez soit utiliser le script de démarrage en lançant la commande suivant : <br>
 
-$ ./script_demarrage.sh
+    $ ./script_demarrage.sh
 
 Vous pouvez également suivre la procédure ci-dessous:
 
